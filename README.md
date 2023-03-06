@@ -25,7 +25,7 @@
 ---
 
 
-:key: Take a look --> https://hariyebk.io
+:key: Take a look --> https://hariyebk.github.io
 
 
 ## :rocket: Technologies used:
