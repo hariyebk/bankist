@@ -48,9 +48,9 @@ You can use any tools you like to help you complete the challenge. So if you've 
 
 ## Rules
 
-### ⚠️You can only pay wifi , electric , water and tax bills.
-### ⚠️ In order to get a loan , the account should have at least 55% of the requested loan. and the deposit frequency of the account should be 1.5 times greater than the withdrawl frequency.
-### ⚠️You can't transfer money to your self .
+#### ⚠️You can only pay wifi , electric , water and tax bills.
+#### ⚠️ In order to get a loan , the account should have at least 55% of the requested loan. and the deposit frequency of the account should be 1.5 times greater than the withdrawl frequency.
+#### ⚠️You can't transfer money to your self .
 
 
 ---
@@ -60,5 +60,5 @@ You can use any tools you like to help you complete the challenge. So if you've 
 this project was developed in The Complete JavaScript Course 2021: From Zero to Expert! couse.
 https://www.udemy.com/course/the-complete-javascript-course/
 
-Created by **Jonas Schmedtmann** <br>
-Developed by ** Harun Bekri**
+Created by ** Jonas Schmedtmann ** <br>
+Developed by ** Harun Bekri **
