@@ -1,7 +1,7 @@
 ## **<h2 align="center"> Online Bank Application   💻</h2>**
 
 
-# Simple Online Bank
+#  💵 Simple Online Bank
 
 <h1 align="center">
     <img src="github/main.JPG"/>
@@ -10,17 +10,17 @@
 # Important
 ## :key: How to Login
 
-User : hb <br/>
-Password : 1111
+💡 User : hb <br/>
+   Password : 1111
 
-User : na <br/>
-Password : 2222
+💡 User : na <br/>
+  Password : 2222
 
-User : em <br/>
-Password : 3333
+💡 User : em <br/>
+  Password : 3333
 
-User : ho <br/>
-Password : 2222
+💡 User : ho <br/>
+  Password : 2222
 
 ---
 
