@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Harun Bekri',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [42000, 9500, -14000, -6500, 73000, -7000, 2300],
   interestRate: 1.2, // %
   pin: 1111,
 };
