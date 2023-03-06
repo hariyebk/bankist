@@ -4,7 +4,7 @@
 #  💵 Simple Online Bank
 
 <h1 align="center">
-    <img src="main.png"/>
+    <img src="demo.png"/>
 </h1>
 
 # Important
