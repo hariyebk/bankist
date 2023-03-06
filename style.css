@@ -220,7 +220,8 @@ nav {
 
 .operation--close {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
-  margin-top: 2rem;
+  margin-top: 1.2rem;
+  margin-bottom: 3rem;
 }
 
 h2 {
