@@ -218,6 +218,11 @@ nav {
   background-image: linear-gradient(to top left, #678ec9, #5198f2);
 }
 
+.operation--close {
+  background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+  margin-top: 5rem;
+}
+
 h2 {
   margin-bottom: 1.5rem;
   font-size: 1.7rem;
