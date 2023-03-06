@@ -51,7 +51,7 @@ const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnbill = document.querySelector('.form__btn--bill');
-const btnClose = document.querySelector('.form__btn--close');
+// const btnClose = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
 
 const inputLoginUsername = document.querySelector('.login__input--user');
@@ -61,8 +61,8 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputBill = document.querySelector('.form__input--utility');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputbillAmount = document.querySelector('.form__input--billamount');
-const inputCloseUsername = document.querySelector('.form__input--user');
-const inputClosePin = document.querySelector('.form__input--pin');
+// const inputCloseUsername = document.querySelector('.form__input--user');
+// const inputClosePin = document.querySelector('.form__input--pin');
 
 //a function computing usernames from account owners
 const createusernames = function (customers) {
@@ -260,31 +260,31 @@ btnLoan.addEventListener('click', function (e) {
   }
 });
 
-// close account funtion
-btnClose.addEventListener('click', function (e) {
-  e.preventDefault();
-  const user_name = inputCloseUsername.value;
-  const user_pin = Number(inputClosePin.value);
-  // condition
-  const con =
-    logged_account.username === user_name && logged_account.pin === user_pin;
-  if (con) {
-    inputCloseUsername.value = inputClosePin.value = '';
-    // hiding the user interface
-    containerApp.style.opacity = 0;
-    // reset the welcome message
-    labelWelcome.textContent = 'Log in to get started';
-    // removing the user
-    const closeaccindex = accounts.findIndex(acc => acc.username === user_name);
-    accounts.splice(closeaccindex, 1);
-    // reset the close message on second try
-    document.querySelector('#close').textContent = 'Close account';
-  } else if (!con) {
-    document.querySelector('#close').textContent = '⚠️ Invalid/Wrong input';
-    inputCloseUsername.value = inputClosePin.value = '';
-    inputClosePin.blur();
-  }
-});
+// // close account funtion
+// btnClose.addEventListener('click', function (e) {
+//   e.preventDefault();
+//   const user_name = inputCloseUsername.value;
+//   const user_pin = Number(inputClosePin.value);
+//   // condition
+//   const con =
+//     logged_account.username === user_name && logged_account.pin === user_pin;
+//   if (con) {
+//     inputCloseUsername.value = inputClosePin.value = '';
+//     // hiding the user interface
+//     containerApp.style.opacity = 0;
+//     // reset the welcome message
+//     labelWelcome.textContent = 'Log in to get started';
+//     // removing the user
+//     const closeaccindex = accounts.findIndex(acc => acc.username === user_name);
+//     accounts.splice(closeaccindex, 1);
+//     // reset the close message on second try
+//     document.querySelector('#close').textContent = 'Close account';
+//   } else if (!con) {
+//     document.querySelector('#close').textContent = '⚠️ Invalid/Wrong input';
+//     inputCloseUsername.value = inputClosePin.value = '';
+//     inputClosePin.blur();
+//   }
+// });
 
 // sort movements function
 let sorted = false; // to track if the user clicked sort. by default it is false.
