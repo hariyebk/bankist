@@ -1,7 +1,7 @@
 ## **<h2 align="center"> Online Bank Application   💻</h2>**
 
 
-#  💵 Simple Online Bank
+#  💵 Simple Digital Bank
 
 <h1 align="center">
     <img src="demo.png"/>
@@ -13,7 +13,7 @@
 💡 User : hb <br/>
    Password : 1111
 
-💡 User : na <br/>
+💡 User : jb <br/>
   Password : 2222
 
 💡 User : em <br/>
@@ -42,6 +42,7 @@ You can use any tools you like to help you complete the challenge. So if you've 
 ## ⭐ Features
 - [x] Login, Logout
 - [x] Transfer money
+- [x] supports international currencies
 - [x] Pay Bill
 - [x] request loan
 - [x] close account
