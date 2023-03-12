@@ -11,10 +11,10 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #444;
   background-color: #f3f3f3;
-  height: 110vh;
+  height: 100vh;
   padding: 2rem;
 }
 
@@ -164,11 +164,11 @@ nav {
 
 /* SUMMARY */
 .summary {
-  grid-row: 5/6;
+  grid-row: 5 / 6;
   display: flex;
   align-items: baseline;
   padding: 0 0.3rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .summary__label {
@@ -180,7 +180,7 @@ nav {
 
 .summary__value {
   font-size: 2.2rem;
-  margin-right: 2.5rem;
+  margin-right: 2.6rem;
 }
 
 .summary__value--in,
@@ -204,12 +204,14 @@ nav {
 /* OPERATIONS */
 .operation {
   border-radius: 1rem;
-  padding: 3rem 2rem;
+  padding: 3rem 4rem;
   color: #333;
 }
+
 .operation--transfer {
   background-image: linear-gradient(to top left, #ffb003, #ffcb03);
 }
+
 .operation--loan {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
@@ -220,8 +222,6 @@ nav {
 
 .operation--close {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
-  margin-top: 1.2rem;
-  margin-bottom: 3rem;
 }
 
 h2 {
@@ -270,6 +270,11 @@ h2 {
   text-align: center;
 }
 
+.form__label--amount {
+  font-size: 1.3rem;
+  text-align: center;
+}
+
 .form__btn {
   border: none;
   border-radius: 0.7rem;
@@ -282,4 +287,13 @@ h2 {
 .form__btn:focus {
   outline: none;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.logout-timer {
+  margin-top: -5rem;
+  font-size: 1.25rem;
+}
+
+.timer {
+  font-weight: 600;
 }
