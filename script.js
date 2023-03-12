@@ -7,16 +7,39 @@
 // Data
 const account1 = {
   owner: 'Harun Bekri',
-  movements: [42000, 9500, -14000, -6500, 73000, -7000, 2300],
+  movements: [42000, 9500, -14000, 6500, 73000, -7000, 2300],
   interestRate: 1.2, // %
   pin: 1111,
+  movementsDates: [
+    '2021-11-18T21:31:17.178Z',
+    '2022-06-23T07:42:02.383Z',
+    '2022-07-28T09:15:04.904Z',
+    '2022-08-01T10:17:24.185Z',
+    '2023-03-07T17:01:17.194Z',
+    '2023-03-10T05:36:17.929Z',
+    '2023-03-10T10:51:36.790Z',
+  ],
+  currency: 'TRY',
+  locale: 'tr-TR',
 };
 
 const account2 = {
-  owner: 'Nati Argaw',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  owner: 'Jhon Bard',
+  movements: [5000, 3400, -150, 790, -3210, -1000, 8500, -300],
   interestRate: 1.5,
   pin: 2222,
+  movementsDates: [
+    '2022-11-18T21:31:17.178Z',
+    '2022-12-23T07:42:02.383Z',
+    '2023-01-28T09:15:04.904Z',
+    '2022-04-01T10:17:24.185Z',
+    '2022-05-08T14:11:59.604Z',
+    '2023-03-07T17:01:17.194Z',
+    '2023-03-10T05:36:17.929Z',
+    '2023-03-10T10:51:36.790Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
 };
 
 const account3 = {
@@ -24,6 +47,18 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  movementsDates: [
+    '2021-11-18T21:31:17.178Z',
+    '2022-04-28T09:15:04.904Z',
+    '2022-06-23T07:42:02.383Z',
+    '2022-07-28T09:15:04.904Z',
+    '2022-09-08T14:11:59.604Z',
+    '2022-08-01T10:17:24.185Z',
+    '2023-03-07T17:01:17.194Z',
+    '2023-03-10T10:51:36.790Z',
+  ],
+  currency: 'CNY',
+  locale: 'zh',
 };
 
 const account4 = {
@@ -31,6 +66,15 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  movementsDates: [
+    '2022-07-28T09:15:04.904Z',
+    '2022-11-18T21:31:17.178Z',
+    '2023-03-07T17:01:17.194Z',
+    '2023-03-10T05:36:17.929Z',
+    '2023-03-10T10:51:36.790Z',
+  ],
+  currency: 'INR',
+  locale: 'hi-IN',
 };
 
 let accounts = [account1, account2, account3, account4];
@@ -64,6 +108,53 @@ const inputbillAmount = document.querySelector('.form__input--billamount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// A function to format the movemnts date
+const formatdate = function (date) {
+  // an arrow function to calculate the day's passed
+  const calcdayspassed = (day1, day2) =>
+    Math.round(Math.abs(day2 - day1) / (1000 * 60 * 60 * 24));
+  const dayspassed = calcdayspassed(date, new Date());
+  // checking for latest transactions
+  if (dayspassed === 0) return 'Today';
+  if (dayspassed === 1) return 'Yesterday';
+  if (dayspassed < 5) `${dayspassed} days ago`;
+  // else it will display the following
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
+// A function to format the currency based on the user's locale
+const formatcurrency = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
+// timer function
+const starttimer = function () {
+    let time = 300;
+const tick = function () {
+    const min = String(Math.trunc(time/60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${sec}`;
+    // stop count if time is 0.
+    if (time === 0) {
+    clearInterval(clock);
+      // hiding the UI
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = 'Log in to get started';
+    }
+    // descreasing the time by one
+    time--
+};
+  tick() // starting to count as soon as the user log's in.
+const clock = setInterval(tick, 1000);
+return clock
+};
+
 //a function computing usernames from account owners
 const createusernames = function (customers) {
   customers.forEach(function (a_customer) {
@@ -75,26 +166,28 @@ const createusernames = function (customers) {
       .join('');
   });
 };
-// this function creates a new property called username in each account object.
 createusernames(accounts);
 
 // a function to add movment rows in the movment
-const dispalymovement = function (movment, sort = false) {
+const dispalymovement = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movment.slice().sort((a, b) => a - b) : movment;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
   // ascending order beacause the default is in descending oeder.
   // I used slice method on movement array of the logged account to prevent the sort method mutating the original array.
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-    const date = Math.trunc(Math.random() * 30) + 1;
-    const month = Math.trunc(Math.random() * 6) + 1;
-    const year = 2015;
+    // extracting the each dates on the movementsdates property.
+    const date = new Date(acc.movementsDates[i]);
+    const dateformat = formatdate(date);
+    const displaycurrency = formatcurrency(mov, acc.locale, acc.currency);
     const html = `<div class="movements__row">
   <div class="movements__type movements__type--${type}"> ${i + 1} ${type}</div>
-  <div class="movements__date"> ${date} /${month} /${year} </div>
-  <div class="movements__value"> ${mov.toLocaleString('en-US')}.00 ብር</div>
+  <div class="movements__date"> ${dateformat} </div>
+  <div class="movements__value"> ${displaycurrency}</div>
 </div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -104,7 +197,11 @@ const dispalymovement = function (movment, sort = false) {
 //  a function to calculate total balances
 const totalbalance = function (customer) {
   customer.balance = customer.movements.reduce((acc, value) => acc + value, 0);
-  labelBalance.textContent = `${customer.balance.toLocaleString('en-US')} ብር`;
+  labelBalance.textContent = formatcurrency(
+    customer.balance,
+    customer.locale,
+    customer.currency
+  );
 };
 
 // a function to calculate the summary data
@@ -112,30 +209,45 @@ const nutshell = function (customer) {
   const In = customer.movements
     .filter(mov => mov > 0)
     .reduce((acc, value) => acc + value, 0);
-  const out = customer.movements
+  const out = Math.abs(customer.movements
     .filter(mov => mov < 0)
-    .reduce((acc, value) => acc + value, 0);
+    .reduce((acc, value) => acc + value, 0));
   const interest = customer.movements
     .filter(mov => mov > 0)
     .map(mov => (mov * logged_account.interestRate) / 100)
     .reduce((acc, value) => acc + value, 0);
-  labelSumIn.textContent = `${In.toLocaleString('en-US')} ብር`;
+  labelSumIn.textContent = formatcurrency(
+    In,
+    customer.locale,
+    customer.currency
+  );
   // tolocalestring method separates a number with comma
-  labelSumOut.textContent = `${Math.abs(out).toLocaleString('en-US')} ብር`;
-  labelSumInterest.textContent = `${interest.toLocaleString('en-US')} ብር`;
+  labelSumOut.textContent = formatcurrency(
+    out,
+    customer.locale,
+    customer.currency
+  );
+  labelSumInterest.textContent = formatcurrency(
+    interest,
+    customer.locale,
+    customer.currency
+  );
 };
 
 // a function to update the user interface
 const updateui = function (customer) {
   // Displaying the transactions
-  dispalymovement(customer.movements);
+  dispalymovement(customer);
   // displaying the total balance
   totalbalance(customer);
   // displaying the summaray
   nutshell(customer);
 };
+
+// *** Event handlers ***//
+let logged_account , clock;
+
 // a function that checks and displays the account information of the logged in user.
-let logged_account;
 btnLogin.addEventListener('click', function (e) {
   ``;
   // prevents from submitting
@@ -156,6 +268,23 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Dear ${
       logged_account.owner.split(' ')[0]
     }, Welcome back !`;
+    // checking if there is a timer running in background
+    if(clock) clearInterval(clock)
+    // strating timer
+    clock = starttimer()
+
+    // getting the user's language from the browsser
+    const locale = navigator.language
+    const displaycurrentdate = new Intl.DateTimeFormat(locale, {
+      year: 'numeric',
+      weekday: 'long',
+      date: 'numeric',
+      day: 'numeric',
+      month: 'long',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format(new Date());
+    labelDate.textContent = displaycurrentdate;
     // if error message is displayed and the user logs in with other accounts.
     // reset the the request loan message
     document.querySelector('#loan').textContent = `Request loan`;
@@ -191,7 +320,13 @@ btnTransfer.addEventListener('click', function (e) {
     inputTransferAmount.blur();
     reciever.movements.push(amount);
     logged_account.movements.push(-amount);
+    logged_account.movementsDates.push(new Date().toISOString());
+    reciever.movementsDates.push(new Date().toISOString());
     document.querySelector('#transfer').textContent = 'Transfer money';
+    // reset the timer from start b/c the user performed operation
+    clearInterval(clock)
+    clock = starttimer()
+    // update UI
     updateui(logged_account);
   } else if (!con) {
     document.querySelector('#transfer').textContent =
@@ -220,8 +355,11 @@ btnbill.addEventListener('click', function (e) {
     services.find(ser => ser === utility)
   ) {
     logged_account.movements.push(-amount);
+    logged_account.movementsDates.push(new Date().toISOString());
     inputbillAmount.value = inputBill.value = '';
-    document.querySelector('#paybill').textContent = 'Pay Bill';
+    // reset the timer from start b/c the user performed operation
+    clearInterval(clock)
+    clock = starttimer()
     updateui(logged_account);
   } else {
     document.querySelector('#paybill').textContent =
@@ -246,11 +384,16 @@ btnLoan.addEventListener('click', function (e) {
     logged_account.balance > 0.55 * amount &&
     depositfrequency > 1.5 * withdrawalfrequency;
   if (con) {
-    logged_account.movements.push(amount);
-    inputLoanAmount.value = '';
-    inputLoanAmount.blur();
-    document.querySelector('#loan').textContent = `Request loan`;
+    const process = setTimeout(() => {
+      logged_account.movements.push(amount);
+      inputLoanAmount.value = '';
+      inputLoanAmount.blur();
+      logged_account.movementsDates.push(new Date().toISOString());
+      // reset the timer from start b/c the user performed operation
+    clearInterval(clock)
+    clock = starttimer()
     updateui(logged_account);
+    }, 2500);
   } else if (!con) {
     document.querySelector(
       '#loan'
@@ -290,7 +433,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false; // to track if the user clicked sort. by default it is false.
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  dispalymovement(logged_account.movements, !sorted);
+  dispalymovement(logged_account, !sorted);
   sorted = !sorted;
 });
 
@@ -303,12 +446,10 @@ document
     document.querySelector('#loan').textContent = `Request loan`;
   });
 
-//displaying the current date and time
-const day = new Date().getDate();
-const mon = new Date().getMonth() + 1;
-const year = new Date().getFullYear();
-const hour = new Date().getHours();
-const minute = new Date().getMinutes();
-document.querySelector(
-  '.date'
-).textContent = `${day}/${mon}/${year}, ${hour}:${minute}`;
+// resetting the bill message if the user enters wrong input
+document
+  .querySelector('.form__label--amount')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector('#paybill').textContent = 'Pay Bill';
+  });
